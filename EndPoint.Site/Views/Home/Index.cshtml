@@ -1,0 +1,670 @@
+﻿@using MyWeb.Common
+@model EndPoint.Site.Models.ViewModels.Personal.PersonalViewModel
+@{
+    ViewData["Title"] = "Privacy Policy";
+    Layout = "~/Views/Shared/_LayoutPersonal.cshtml";
+    var home = Model.Homes.FirstOrDefault();
+    var about = Model.Abouts.FirstOrDefault();
+    var service = Model.Services.FirstOrDefault();
+    var price = Model.Prices.FirstOrDefault();
+    var clients = Model.Clients;
+    var contact = Model.Contacts.FirstOrDefault();
+    var projects = Model.Projects.FirstOrDefault();
+    var projectTypes = new List<string>();
+    foreach (var item in projects.ProjectItems)
+    {
+        var splitted = item.ProjectType.Split(" ");
+        foreach (var str in splitted)
+        {
+            projectTypes.AddIfNotExists(str);
+        }
+    }
+    var features = Model.Features.FirstOrDefault();
+    var counters = Model.Counters;
+    var teams = Model.Teams.FirstOrDefault();
+}
+<!-- Theme Header Start -->
+<header id="home" class="full-height bg-img" data-src="@home.Image">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <div class="header-content">
+                    <div class="header-content-inner">
+                        <div class="section-title">
+                            <h1 class="section-title-divider animated zoomIn"><span class="primary-color">@home.Title</span></h1>
+                            <p>@home.Description</p>
+                        </div>
+                        <a class="btn btn-default btn-xl" href="@home.Link">اطلاعات بیشتر</a> <!-- THEME DEFAULT BUTTON -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Theme Header End -->
+
+<!-- About Section -->
+<section id="about" class="section-parallax section-typo-white" data-src="@about.HeaderImage" data-stellar-background-ratio="0.5">
+    <span class="overlay-section-bg primary-section-bg"></span>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1 text-center">
+                <div class="section-title">
+                    <h2 class="section-title-divider">@about.Title</h2>
+                    <!-- SECTION TITLE -->
+                    <p>@about.Description</p>
+                </div>
+                <a class="btn btn-default btn-xl btn-bg-white" href="@about.Link">شروع کنید!</a> <!-- THEME DEFAULT BUTTON WITH WHITE BACKGROUND -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who we are -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-inner">
+                    <div class="section-sub-title">
+                        <h3 class="under-line">@about.Title2</h3>
+                    </div>
+                    <p>@about.Description2</p>
+                </div>
+                <div class="col-inner">
+                    <div class="section-sub-title">
+                        <h3 class="under-line">@about.TaskTitle</h3>
+                    </div>
+                    <ul class="star-list">
+                        @foreach (var item in about.AboutTasks)
+                        {
+                            <li>@item.Title</li>
+                        }
+                    </ul>
+                </div>
+                <a class="btn btn-default btn-xl btn-normal margin-top-20" href="#">بیشتر بخوانید</a> <!-- THEME DEFAULT BUTTON WITH NORMAL STYLE -->
+            </div>
+            <div class="col-md-6 hidden-sm hidden-xs media">
+                <img alt="" src="@about.Image" class="img-responsive" />
+            </div>
+        </div>
+    </div>
+</section>
+<!-- About Section End-->
+
+<!-- Support Section Start -->
+<section class="section-parallax" data-src="@Model.SupportTop.Image" data-stellar-background-ratio="0.5">
+    <span class="overlay-section-bg black-section-bg"></span>
+    <div class="container section-typo-white">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1 text-center">
+                <h2 class="inline-content"><span>@Model.SupportTop.Title</span></h2>
+                <!-- SECTION TITLE -->
+                <a class="btn btn-default btn-xl btn-inline" href="@Model.SupportTop.Link">@Model.SupportTop.LinkTitle</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Support Section End -->
+
+<!-- Service Section Start -->
+<section class="padding-bottom-50" id="service">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="section-title">
+                    <h2 class="section-title-divider primary-divider">@service.Title</h2>
+                    <!-- SECTION TITLE -->
+                    <p>@service.Description</p>
+                </div>
+            </div>
+        </div>
+        <div class="row service-box-wrap">
+            @foreach (var item in service.ServiceItems)
+            {
+                <div class="col-md-3 col-sm-6 service-box-col">
+                    <figure>
+                        <div class="service-image">
+                            <i class="@item.Icon"></i>
+                        </div>
+                    </figure>
+                    <h4 class="service-title title-bordered">@item.Title</h4>
+                    <p class="service-content">@item.Description</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Service Section End -->
+
+<!-- Support Section Start -->
+<section class="section-parallax" data-src="@Model.SupportMiddle.Image" data-stellar-background-ratio="0.5">
+    <span class="overlay-section-bg black-section-bg"></span>
+    <div class="container section-typo-white">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1 text-center">
+                <h2 class="inline-content"><span>@Model.SupportMiddle.Title</span></h2>
+                <!-- SECTION TITLE -->
+                <a class="btn btn-default btn-xl btn-inline" href="@Model.SupportMiddle.Link">@Model.SupportMiddle.LinkTitle</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Support Section End -->
+
+<!-- Features Section Start -->
+<section class="padding-bottom-50" id="features">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-12">
+                <div class="section-title">
+                    <h2 class="section-title-divider primary-divider">@features.Title</h2>
+                    <!-- SECTION TITLE -->
+                    <p>@features.Description</p>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-bottom-0">
+            @foreach (var item in features.FeatureItems)
+            {
+                <div class="col-sm-4">
+                    <div class="media feature-box">
+                        <div class="media-left">
+                            <span class="feature-icon">
+                                <i class="@item.Icon"></i>
+                            </span>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">@item.Title</h4>
+                            <p>@item.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Features Section End -->
+
+<!-- Counter Section Start -->
+@{
+    var counterImage = counters.FirstOrDefault().Image;
+}
+<section class="section-parallax padding-bottom-50" data-src="@counterImage" data-stellar-background-ratio="0.5">
+    <span class="overlay-section-bg primary-section-bg"></span>
+    <div class="container section-typo-white">
+        <div class="row text-center">
+            @foreach (var item in counters)
+            {
+                <div class="col-md-3 col-sm-6">
+                    <div class="counter-wrap">
+                        <span class="counter-icon">
+                            <i class="@item.Icon"></i>
+                        </span>
+                        <h3 class="counter" data-counter="@item.Count">
+                            @item.Count
+                        </h3>
+                        <span class="counter-text">
+                            @item.Title
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Counter Section End -->
+
+<!-- Our Works Section Start -->
+<section id="portfolio">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="section-title">
+                    <h2 class="section-title-divider primary-divider">@projects.Title</h2>
+                    <!-- SECTION TITLE -->
+                    <p>@projects.Description</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portfolio-button-set margin-bottom-30">
+                    <a class="btn btn-default btn-xl btn-normal portfolio filter-active" href="#">همه</a>
+                    @foreach (var item in projectTypes)
+                    {
+                        <a class="btn btn-default btn-xl btn-normal portfolio" data-filter=".@item" href="#">@item.Replace("-"," ")</a>
+                    }
+                </div>
+                <div class="grid" data-gutter="20" data-col="3">
+                    @foreach (var item in projects.ProjectItems)
+                    {
+                        <div class="portfolio-item element-item @item.ProjectType">
+                            <img alt="" src="@item.Image" class="img-responsive" />
+                            <div class="portfolio-content">
+                                <div class="portfolio-content-inner">
+                                    <div class="portfolio-inner">
+                                        <h4><a href="@item.Link" class="link-white">@item.Title</a></h4>
+                                        <p class="portfolio-description">@item.Description</p>
+                                        <p class="portfolio-popup">
+                                            <a class="link-white" href="@item.Image" data-lightbox="portfolio" data-title="Landing Page">
+                                                <span class="fa fa-arrows-alt"></span>
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Our Works Section End -->
+
+<!-- Support Section Start -->
+<section class="section-parallax" data-src="@Model.SupportBottom.Image" data-stellar-background-ratio="0.5">
+    <span class="overlay-section-bg black-section-bg"></span>
+    <div class="container section-typo-white">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1 text-center">
+                <h2 class="inline-content"><span>@Model.SupportBottom.Title</span></h2>
+                <!-- SECTION TITLE -->
+                <a class="btn btn-default btn-xl btn-inline" href="@Model.SupportBottom.Link">@Model.SupportBottom.LinkTitle</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Support Section End -->
+
+<!-- Our Plans Section Start -->
+<section class="padding-bottom-50" id="plans">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-12">
+                <div class="section-title">
+                    <h2 class="section-title-divider primary-divider">@price.Title</h2>
+                    <!-- SECTION TITLE -->
+                    <p>
+                        @price.Description
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            @foreach (var item in price.PriceItems)
+            {
+                var pricingTableStyle = item.Featured ? "featured" : "";
+                <div class="col-md-4 animated" data-animation="fadeInUp" data-animation-delay="0">
+                    <div class="pricing-table @pricingTableStyle">
+                        <div class="price-main">
+                            <div class="price-amount">
+                                <h3>@item.Amount ریال <br><span>در ماه</span></h3>
+                            </div>
+                            <div class="price-title">
+                                <h2>@item.Title</h2>
+                            </div>
+                            <div class="price-content">
+                                <p>@item.Description</p>
+                                <p class="text-center"><a class="btn btn-default btn-xl btn-normal" href="@item.Link">اکنون سفارش دهید</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Our Plans Section End -->
+
+<!-- Support Section Start -->
+<section class="section-parallax" data-src="@Model.SupportFooter.Image" data-stellar-background-ratio="0.5">
+    <span class="overlay-section-bg black-section-bg"></span>
+    <div class="container section-typo-white">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1 text-center">
+                <h2 class="inline-content"><span>@Model.SupportFooter.Title</span></h2>
+                <!-- SECTION TITLE -->
+                <a class="btn btn-default btn-xl btn-inline" href="@Model.SupportFooter.Link">@Model.SupportFooter.LinkTitle</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Support Section End -->
+
+<!-- Team Section Start -->
+<section class="padding-bottom-50" id="team">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-12">
+                <div class="section-title">
+                    <h2 class="section-title-divider primary-divider">@teams.Title</h2>
+                    <!-- SECTION TITLE -->
+                    <p>
+                        @teams.Description
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            @foreach (var item in teams.TeamMemberItems)
+            {
+                <div class="col-md-3 col-sm-6">
+                    <div class="team-wrap text-center">
+                        <div class="team-image">
+                            <img alt="" src="@item.Image" title="@item.Name" class="img-responsive" />
+                        </div>
+                        <div class="team-title">
+                            <h3>@item.Name</h3>
+                            <span>@item.Jobtitle</span>
+                        </div>
+                        <div class="team-content">
+                            @item.Description
+                        </div>
+                        <div class="team-social-links">
+                            <ul class="list-inline">
+                                <li><a href="@item.Facebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="@item.Twitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="@item.Linkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="@item.GooglePlus" title="Google Plus"><i class="fa fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Team Section End -->
+
+<!-- Testimonial Section Start -->
+@{
+    var clientTitleImage = clients.FirstOrDefault().TitleImage;
+}
+<section class="section-parallax section-typo-white" data-src="@clientTitleImage" data-stellar-background-ratio="0.5">
+    <span class="overlay-section-bg black-section-bg"></span>
+    <div class="container section-typo-white">
+        <div class="row">
+            <div dir="ltr" class="col-sm-8 col-sm-offset-2 text-center">
+                <div class="testimonial-wrapper">
+                    <div class="owl-carousel white-dots testimonial-slider" data-items="1" data-loop="true" data-slideby="1" data-margin="0" data-nav="false" data-dots="true" data-smart-speed="1000" data-left-arrow="fa fa-angle-left" data-right-arrow="fa fa-angle-right">
+                        @foreach (var item in clients)
+                        {
+                            @if (!string.IsNullOrWhiteSpace(item.Comment))
+                            {
+                                <div class="testimonial-item">
+                                    <div class="testimonial-title">
+                                        <div class="testimonial-image img-thumbnail">
+                                            <img alt="" src="@item.Image" class="img-responsive" title="Testimonial" />
+                                        </div>
+                                        <h4>@item.Title</h4>
+                                        <span>@item.Description</span>
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p>@item.Comment</p>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Testimonial Section End -->
+
+<!-- Blog Section Start -->
+<section class="padding-bottom-50" id="blog">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-12">
+                <div class="section-title">
+                    <h2 class="section-title-divider primary-divider">آخرین مطالب</h2>
+                    <!-- SECTION TITLE -->
+                    <p>
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-bottom-0">
+            <div class="col-md-4">
+                <div class="blog-wrap">
+                    <div class="blog-image">
+                        <img alt="" src="~/PersonalSiteTemplate/images/blog/blog-1.jpg" title="Jack" class="img-responsive" />
+                    </div>
+                    <div class="blog-data">
+                        <div class="blog-meta">
+                            <ul class="list-inline">
+                                <li><a href="#" title="Author" class="author">مدیر</a></li>
+                                <li><a href="#" title="Date" class="date">5 شهریور 1400</a></li>
+                                <li><a href="#" title="Comments" class="comment">4</a></li>
+                            </ul>
+                        </div>
+                        <div class="blog-title">
+                            <h3><a href="#" title="Title Here">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم </a></h3>
+                        </div>
+                        <div class="blog-content">
+                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
+                        </div>
+                        <a class="btn btn-default btn-xl btn-normal margin-top-20" href="#">بیشتر بخوانید</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="blog-wrap">
+                    <div class="blog-image">
+                        <img alt="" src="~/PersonalSiteTemplate/images/blog/blog-2.jpg" title="Jack" class="img-responsive" />
+                    </div>
+                    <div class="blog-data">
+                        <div class="blog-meta">
+                            <ul class="list-inline">
+                                <li><a href="#" title="Author" class="author">مدیر</a></li>
+                                <li><a href="#" title="Date" class="date">5 شهریور 1400</a></li>
+                                <li><a href="#" title="Comments" class="comment">4</a></li>
+                            </ul>
+                        </div>
+                        <div class="blog-title">
+                            <h3><a href="#" title="Title Here">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم </a></h3>
+                        </div>
+                        <div class="blog-content">
+                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
+                        </div>
+                        <a class="btn btn-default btn-xl btn-normal margin-top-20" href="#">بیشتر بخوانید</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="blog-wrap">
+                    <div class="blog-image">
+                        <img alt="" src="~/PersonalSiteTemplate/images/blog/blog-3.jpg" title="Jack" class="img-responsive" />
+                    </div>
+                    <div class="blog-data">
+                        <div class="blog-meta">
+                            <ul class="list-inline">
+                                <li><a href="#" title="Author" class="author">مدیر</a></li>
+                                <li><a href="#" title="Date" class="date">5 شهریور 1400</a></li>
+                                <li><a href="#" title="Comments" class="comment">4</a></li>
+                            </ul>
+                        </div>
+                        <div class="blog-title">
+                            <h3><a href="#" title="Title Here">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم </a></h3>
+                        </div>
+                        <div class="blog-content">
+                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
+                        </div>
+                        <a class="btn btn-default btn-xl btn-normal margin-top-20" href="#">بیشتر بخوانید</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->
+
+<!-- Subsribe Section Start -->
+<section class="section-parallax" data-src="../PersonalSiteTemplate/images/bg/7.jpg" data-stellar-background-ratio="0.5">
+    <span class="overlay-section-bg black-section-bg"></span>
+    <div class="container section-typo-white">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1 text-center">
+                <div class="subscribe-form">
+                    <p id="subscribe-status-msg" class="hide"></p>
+                    <div class="input-group subscribe-box">
+                        <input class="form-control" name="txtSiteNewsMemberEmail" autocomplete="off" id="txtSiteNewsMemberEmail" placeholder="ایمیل شما" type="email">
+                        <span class="input-group-btn">
+                            <a onclick="RegisterSiteNewsMember()" class="btn btn-default white-border typo-gray subscribe-btn">عضویت</a>
+                        </span>
+                    </div>
+                    <!-- /input-group -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Subsribe Section End -->
+
+<!-- Contact Section Start -->
+<section class="contact-section" id="contact">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="section-title">
+                    <h2 class="section-title-divider primary-divider">@contact.Title</h2>
+                    <!-- SECTION TITLE -->
+                    <p>
+                        @contact.Description
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            @foreach (var item in contact.ContactItems)
+            {
+                <div class="col-sm-4">
+                    <div class="@item.Type">
+                        <p class="contact-icons"><i class="@item.Icon"></i></p>
+                        <div class="padding-tb-20">
+                            <p>
+                                @item.Description
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row text-center">
+            <div class="contact-form">
+                <p id="contact-status-msg" class="hide"></p>
+                <div class="col-md-4 col-md-offset-2 padding-bottom-20">
+                    <div class="form-group">
+                        <input id="txtMessageName" class="form-control" name="txtMessageName" autocomplete="off" placeholder="نام" data-bv-field="txtMessageName" type="text" />
+                    </div>
+                </div>
+                <div class="col-md-4 padding-bottom-20">
+                    <div class="form-group">
+                        <input id="txtMessageEmail" class="form-control" name="txtMessageEmail" autocomplete="off" placeholder="ایمیل" data-bv-field="txtMessageEmail" type="email">
+                    </div>
+                </div>
+                <span class="clearfix"></span>
+                <div class="contact-message col-md-8 col-md-offset-2">
+                    <div class="form-group margin-bottom-0">
+                        <textarea id="txtMessageText" class="form-control textarea" rows="3" name="txtMessageText" placeholder="پیام" data-bv-field="txtMessageText"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12 padding-top-30">
+                    <a onclick="SendMessage()" class="btn btn-default btn-xl btn-normal margin-top-20 contact-btn">ارسال پیام</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact Section End -->
+
+<!-- Map Section Start -->
+<section class="padding-none">
+    <!-- Map Styles -> Standard, Aubergine, Silver, Retro, Dark, Aubergine -->
+    <div id="starkGoogleMap" style="width:100%;height:400px;" data-map-style="Silver"></div>
+</section>
+<!-- Map Section End -->
+
+<!-- Our Clients Section Start -->
+<section class="padding-tb-40">
+    <div class="container">
+        <div class="row">
+            <div dir="ltr" class="col-md-12">
+                <div class="client-slider-wrap">
+                    <div class="owl-carousel client-slider" data-items="5" data-loop="true" data-margin="30" data-nav="false" data-slideby="1" data-dots="false" data-smart-speed="1000" data-left-arrow="fa fa-angle-left" data-right-arrow="fa fa-angle-right">
+                        @foreach (var item in clients)
+                        {
+                            var alt = $"{@item.Title}-{item.Description}";
+                            <div class="client-item">
+                                <a href="@item.Link"><img alt="@alt" class="img-responsive" src="@item.Image" /></a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts
+    {
+    <link href="~/Sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/Sweetalert2/sweetalert2.min.js"></script>
+
+    <script>
+        var emailRegex = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+        function SendMessage() {
+            var email = $("#txtMessageEmail").val();
+            if (!emailRegex.test(email)) {
+                Swal.fire(
+                    'خطا!',
+                    'ایمیل معتبر نیست!',
+                    'warning'
+                );
+            }
+            else {
+                callAjaxPost(
+                    'ارسال پیام',
+                    'آیا میخواهید ارسال پیام انجام شود؟',
+                    'بله پیام ارسال شود',
+                    'خیر',
+                    'application/x-www-form-urlencoded',
+                    'json',
+                    'Home/SendMessage',
+                    {
+                        'Name': $("#txtMessageName").val(),
+                        'Email': email,
+                        'Text': $("#txtMessageText").val()
+                    }
+                    );
+
+            }
+        }        
+        function RegisterSiteNewsMember() {
+            var email = $("#txtSiteNewsMemberEmail").val();
+            if (!emailRegex.test(email)) {
+                Swal.fire(
+                    'خطا!',
+                    'ایمیل معتبر نیست!',
+                    'warning'
+                );
+            }
+            else {
+                callAjaxPost(
+                    'عضویت در خبرنامه',
+                    'آیا میخواهید عضو خبرنامه سایت شوید؟',
+                    'بله عضویت انجام شود',
+                    'خیر',
+                    'application/x-www-form-urlencoded',
+                    'json',
+                    'Home/RegisterSiteNewsMember',
+                    { 'Email': email });
+            }
+        }
+    </script>
+}

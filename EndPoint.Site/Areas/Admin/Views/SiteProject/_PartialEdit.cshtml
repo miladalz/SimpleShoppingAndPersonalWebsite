@@ -1,0 +1,64 @@
+﻿@using MyWeb.Application.Services.Personals.Queries
+@model ProjectList
+
+<div class="row">
+    @Html.HiddenFor(model => model.Id)
+    <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>    
+</div>
+
+<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+    <div class="col-sm-12">
+        <table class="table table-striped table-bordered zero-configuration dataTable" role="grid"
+               aria-describedby="DataTables_Table_0_info">
+            <thead>
+                <tr role="row">
+                    <th>Title</th>
+                    <th>ProjectType</th>
+                    <th>Description</th>
+                    <th>Link</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody id="ProjectItems">
+                @for (var i = 0; i < Model.ProjectItems.Count; i++)
+                {
+                    <tr role="row">
+                        <td>
+                            <input id="ProjectItems[@i].Id" name="ProjectItems[@i].Id" value="@Model.ProjectItems[i].Id" type="hidden" class="form-control">
+                            <input id="ProjectItems[@i].Title" name="ProjectItems[@i].Title" value="@Model.ProjectItems[i].Title" type="text" class="form-control">                                                                                  
+                        </td>
+                        <td>
+                            <input id="ProjectItems[@i].ProjectType" name="ProjectItems[@i].ProjectType" value="@Model.ProjectItems[i].ProjectType" type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input id="ProjectItems[@i].Description" name="ProjectItems[@i].Description" value="@Model.ProjectItems[i].Description" type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input id="ProjectItems[@i].Link" name="ProjectItems[@i].Link" value="@Model.ProjectItems[i].Link" type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input id="ProjectItems[@i].Image" name="ProjectItems[@i].Image" value="@Model.ProjectItems[i].Image" type="text" class="form-control">
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

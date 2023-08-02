@@ -1,0 +1,76 @@
+﻿@using MyWeb.Application.Services.Personals.Queries
+@model TeamList
+
+<div class="row">
+    @Html.HiddenFor(model => model.Id)
+    <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>    
+</div>
+
+<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+    <div class="col-sm-12">
+        <table class="table table-striped table-bordered zero-configuration dataTable" role="grid"
+               aria-describedby="DataTables_Table_0_info">
+            <thead>
+                <tr role="row">
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Jobtitle</th>
+                    <th>Description</th>
+                    <th>Facebook</th>
+                    <th>Linkedin</th>
+                    <th>GooglePlus</th>
+                    <th>Twitter</th>
+                </tr>
+            </thead>
+            <tbody id="TeamMemberItems">
+                @for (var i = 0; i < Model.TeamMemberItems.Count; i++)
+                {
+                    <tr role="row">
+                        <td>
+                            <input id="TeamMemberItems[@i].Id" name="TeamMemberItems[@i].Id" value="@Model.TeamMemberItems[i].Id" type="hidden" class="form-control">
+                            <input id="TeamMemberItems[@i].Image" name="TeamMemberItems[@i].Image" value="@Model.TeamMemberItems[i].Image" type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input id="TeamMemberItems[@i].Name" name="TeamMemberItems[@i].Name" value="@Model.TeamMemberItems[i].Name" type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input id="TeamMemberItems[@i].Jobtitle" name="TeamMemberItems[@i].Jobtitle" value="@Model.TeamMemberItems[i].Jobtitle" type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input id="TeamMemberItems[@i].Description" name="TeamMemberItems[@i].Description" value="@Model.TeamMemberItems[i].Description" type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input id="TeamMemberItems[@i].Facebook" name="TeamMemberItems[@i].Facebook" value="@Model.TeamMemberItems[i].Facebook" type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input id="TeamMemberItems[@i].Linkedin" name="TeamMemberItems[@i].Linkedin" value="@Model.TeamMemberItems[i].Linkedin" type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input id="TeamMemberItems[@i].GooglePlus" name="TeamMemberItems[@i].GooglePlus" value="@Model.TeamMemberItems[i].GooglePlus" type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input id="TeamMemberItems[@i].Twitter" name="TeamMemberItems[@i].Twitter" value="@Model.TeamMemberItems[i].Twitter" type="text" class="form-control">
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

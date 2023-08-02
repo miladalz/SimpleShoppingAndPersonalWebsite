@@ -1,0 +1,13 @@
+Application:
+Install-Package Microsoft.EntityFrameworkCore -Version 6.0.8
+
+Persistance:
+Install-Package Microsoft.EntityFrameworkCore -Version 6.0.8
+Install-Package Microsoft.EntityFrameworkCore.Relational -Version 6.0.8
+Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 6.0.8
+Install-Package Microsoft.EntityFrameworkCore.Tools -Version 6.0.8
+
+EndPoint.Site:
+Install-Package Microsoft.EntityFrameworkCore -Version 6.0.8
+Install-Package Microsoft.EntityFrameworkCore.Design -Version 6.0.8
+Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 6.0.8

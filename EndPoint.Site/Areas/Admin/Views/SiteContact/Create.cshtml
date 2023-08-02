@@ -1,0 +1,154 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "اضافه کردن بخش تماس";
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+}
+
+<section class="basic-elements">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-wrap bar-success">
+                        <h4 class="card-title mb-0">@ViewData["Title"]</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="px-3">
+                        <div class="form">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">عنوان</label>
+                                            <input type="text" class="form-control" id="Title">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="helpInputTop">توضیحات</label>
+                                            <input type="text" class="form-control" id="Description">
+                                        </fieldset>
+                                    </div>
+
+                                    <br class="clear" />
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">آیکون</label>
+                                            <input type="text" class="form-control" id="txtItemIcon" />
+                                        </fieldset>                                        
+                                    </div>
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">توضیحات</label>
+                                            <input type="text" class="form-control" id="txtItemDescription"/>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">نوع</label>
+                                            <select id="txtItemType" class="form-control">
+                                                <option value="contact-number">تلفن</option>
+                                                <option value="contact-mail">ایمیل</option>
+                                                <option value="contact-adress">آدرس</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>                                                                           
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <br />
+                                            <a class="btn btn-success" id="btnAddItem">افزودن</a>
+                                        </fieldset>
+                                    </div>
+
+                                    <table id="tblItems" class="col-md-12 table table-bordered table-hover table-condensed table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    آیکون
+                                                </th>
+                                                <th>
+                                                    توضیحات
+                                                </th>
+                                                <th>
+                                                    نوع
+                                                </th>
+                                                <th>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+
+                                    <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <br />
+                                            <a onclick="Save()" class="btn btn-success col-md-12">ثبت</a>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts
+    {
+    <link href="~/Sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/Sweetalert2/sweetalert2.min.js"></script>
+    <script>
+        $("#btnAddItem").on("click", function () {
+            var txtItemType = $("#txtItemType").val();
+            var txtItemDescription = $("#txtItemDescription").val();
+            var txtItemIcon = $("#txtItemIcon").val();
+            if (txtItemType == "" || txtItemDescription == "" || txtItemIcon == "") {
+                swal.fire(
+                    'هشدار!',
+                    "تمام مقادیر را باید وارد کنید",
+                    'warning'
+                );
+            }
+            else {
+                $('#tblItems tbody').append('<tr> ' +
+                    '<td>' + txtItemIcon + '</td>' +
+                    '<td>' + txtItemDescription + '</td>' +
+                    '<td>' + txtItemType + '</td>' +
+                    '<td> <a class="btnDeleteItems btn btn-danger">حذف</a> </td> </tr>');                                
+                $("#txtItemIcon").val('');
+                $("#txtItemDescription").val('');
+                $("#txtItemType").val('');
+            }
+        });
+
+        $("#tblItems").on('click', '.btnDeleteItems', function () {
+            $(this).closest('tr').remove();
+        });
+
+        function Save() {
+            var dataItemsViewModel = $('#tblItems tr:gt(0)').map(function () {
+                return {
+                    Icon: $(this.cells[0]).text(),
+                    Description: $(this.cells[1]).text(),
+                    Type: $(this.cells[2]).text(),
+                };
+            }).get();
+            callAjaxPost(
+                'ذخیره اطلاعات',
+                'آیا میخواهید اطلاعات ذخیره شود؟',
+                'بله ذخیره شود',
+                'خیر',
+                'application/x-www-form-urlencoded',
+                'json',
+                'Create',
+                {
+                    'Title': $("#Title").val(),
+                    'Description': $("#Description").val(),
+                    ContactItems: dataItemsViewModel
+                }
+            );
+        }
+    </script>
+}

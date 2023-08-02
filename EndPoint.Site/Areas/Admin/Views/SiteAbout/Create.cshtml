@@ -1,0 +1,168 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "اضافه کردن بخش درباره";
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+}
+
+<section class="basic-elements">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-wrap bar-success">
+                        <h4 class="card-title mb-0">@ViewData["Title"]</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="px-3">
+                        <div class="form">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">عنوان</label>
+                                            <input type="text" class="form-control" id="Title">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="helpInputTop">توضیحات</label>
+                                            <input type="text" class="form-control" id="Description">
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="helpInputTop">لینک</label>
+                                            <input type="text" class="form-control" id="Link">
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="helpInputTop">عنوان دوم</label>
+                                            <input type="text" class="form-control" id="Title2">
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="helpInputTop">تصویر</label>
+                                            <input type="text" class="form-control" id="Image">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="helpInputTop">تصویر عنوان</label>
+                                            <input type="text" class="form-control" id="HeaderImage">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="helpInputTop">عنوان بخش وظایف</label>
+                                            <input type="text" class="form-control" id="TaskTitle">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-8 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="helpInputTop">توضیحات دوم</label>
+                                            <input type="text" class="form-control" id="Description2">
+                                        </fieldset>
+                                    </div>
+
+                                    <br class="clear" />
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">عنوان وظیفه</label>
+                                            <input type="text" class="form-control" id="txtItemTitle" placeholder="عنوان وظیفه" />
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <br />
+                                            <a class="btn btn-success" id="btnAddItem">افزودن</a>
+                                        </fieldset>
+                                    </div>
+                                   
+                                    <table id="tblItems" class="col-md-12 table table-bordered table-hover table-condensed table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    عنوان وظیفه
+                                                </th>
+                                                <th>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+
+
+                                    <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <br />
+                                            <a onclick="Save()" class="btn btn-success col-md-12">ثبت</a>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts
+{
+    <link href="~/Sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/Sweetalert2/sweetalert2.min.js"></script>
+    <script>
+        $("#btnAddItem").on("click", function () {
+            var txtItemTitle = $("#txtItemTitle").val();
+            if (txtItemTitle == "") {
+                swal.fire(
+                    'هشدار!',
+                    "عنوان را باید وارد کنید",
+                    'warning'
+                );
+            }
+            else {
+                $('#tblItems tbody').append('<tr> <td>' + txtItemTitle + '</td> <td> <a class="btnDeleteItems btn btn-danger">حذف</a> </td> </tr>');
+                $("#txtItemTitle").val('');
+            }
+        });
+
+        $("#tblItems").on('click', '.btnDeleteItems', function () {
+            $(this).closest('tr').remove();
+        });
+
+        function Save() {
+            var dataItemsViewModel = $('#tblItems tr:gt(0)').map(function () {
+                return {
+                    Title: $(this.cells[0]).text()
+                };
+            }).get();
+            callAjaxPost(
+                'ذخیره اطلاعات',
+                'آیا میخواهید اطلاعات ذخیره شود؟',
+                'بله ذخیره شود',
+                'خیر',
+                'application/x-www-form-urlencoded',
+                'json',
+                'Create',
+                {
+                    'Title': $("#Title").val(),
+                    'Description': $("#Description").val(),
+                    'Link': $("#Link").val(),
+                    'Title2': $("#Title2").val(),
+                    'Description2': $("#Description2").val(),
+                    'TaskTitle': $("#TaskTitle").val(),
+                    'Image': $("#Image").val(),
+                    'HeaderImage': $("#HeaderImage").val(),
+                    AboutTasks: dataItemsViewModel
+                }
+            );
+        }
+    </script>
+}

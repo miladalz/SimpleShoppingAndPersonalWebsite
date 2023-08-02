@@ -1,0 +1,199 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "اضافه کردن بخش خدمات";
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+}
+
+<section class="basic-elements">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-wrap bar-success">
+                        <h4 class="card-title mb-0">@ViewData["Title"]</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="px-3">
+                        <div class="form">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">عنوان</label>
+                                            <input type="text" class="form-control" id="Title">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="helpInputTop">توضیحات</label>
+                                            <input type="text" class="form-control" id="Description">
+                                        </fieldset>
+                                    </div>
+
+                                    <br class="clear" />
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">تصویر</label>
+                                            <input type="text" class="form-control" id="txtItemImage"/>
+                                        </fieldset>                                        
+                                    </div>
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">نام</label>
+                                            <input type="text" class="form-control" id="txtItemName" />
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">شغل</label>
+                                            <input type="text" class="form-control" id="txtItemJobtitle" />
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">توضیحات</label>
+                                            <input type="text" class="form-control" id="txtItemDescription" />
+                                        </fieldset>
+                                    </div>    
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">فیسبوک</label>
+                                            <input type="text" class="form-control" id="txtItemFacebook" />
+                                        </fieldset>
+                                    </div>    
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">لینکداین</label>
+                                            <input type="text" class="form-control" id="txtItemLinkedin" />
+                                        </fieldset>
+                                    </div>    
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">گوگل پلاس</label>
+                                            <input type="text" class="form-control" id="txtItemGooglePlus" />
+                                        </fieldset>
+                                    </div>    
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">توییتر</label>
+                                            <input type="text" class="form-control" id="txtItemTwitter" />
+                                        </fieldset>
+                                    </div>    
+                                    
+                                    <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <br />
+                                            <a class="btn btn-success" id="btnAddItem">افزودن</a>
+                                        </fieldset>
+                                    </div>
+
+                                    <table id="tblItems" class="col-md-12 table table-bordered table-hover table-condensed table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>تصویر</th>
+                                                <th>نان</th>
+                                                <th>شغل</th>
+                                                <th>توضیحات</th>
+                                                <th>فیسبوک</th>
+                                                <th>لینکداین</th>
+                                                <th>گوگل پلاس</th>
+                                                <th>توییتر</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <br />
+                                            <a onclick="Save()" class="btn btn-success col-md-12">ثبت</a>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts
+    {
+    <link href="~/Sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/Sweetalert2/sweetalert2.min.js"></script>
+    <script>
+        $("#btnAddItem").on("click", function () {
+            var txtItemImage = $("#txtItemImage").val();
+            var txtItemName = $("#txtItemName").val();
+            var txtItemJobtitle = $("#txtItemJobtitle").val();
+            var txtItemDescription = $("#txtItemDescription").val();
+            var txtItemFacebook = $("#txtItemFacebook").val();
+            var txtItemLinkedin = $("#txtItemLinkedin").val();
+            var txtItemGooglePlus = $("#txtItemGooglePlus").val();
+            var txtItemTwitter = $("#txtItemTwitter").val();
+            if (txtItemImage == "" || txtItemName == "" || txtItemJobtitle == "" || txtItemDescription == "" ||
+                txtItemFacebook == "" || txtItemLinkedin == "" || txtItemGooglePlus == "" || txtItemTwitter == "") {
+                swal.fire(
+                    'هشدار!',
+                    "تمام مقادیر را باید وارد کنید",
+                    'warning'
+                );
+            }
+            else {
+                $('#tblItems tbody').append('<tr> ' +
+                    '<td>' + txtItemImage + '</td>' +
+                    '<td>' + txtItemName + '</td>' +
+                    '<td>' + txtItemJobtitle + '</td>' +
+                    '<td>' + txtItemDescription + '</td>' +
+                    '<td>' + txtItemFacebook + '</td>' +
+                    '<td>' + txtItemLinkedin + '</td>' +
+                    '<td>' + txtItemGooglePlus + '</td>' +
+                    '<td>' + txtItemTwitter + '</td>' +
+                    '<td> <a class="btnDeleteItems btn btn-danger">حذف</a> </td> </tr>');
+                $("#txtItemImage").val('');
+                $("#txtItemName").val('');
+                $("#txtItemJobtitle").val('');
+                $("#txtItemDescription").val('');
+                $("#txtItemFacebook").val('');
+                $("#txtItemLinkedin").val('');
+                $("#txtItemGooglePlus").val('');
+                $("#txtItemTwitter").val('');
+            }
+        });
+
+        $("#tblItems").on('click', '.btnDeleteItems', function () {
+            $(this).closest('tr').remove();
+        });
+
+        function Save() {
+            var dataItemsViewModel = $('#tblItems tr:gt(0)').map(function () {
+                return {
+                    Image: $(this.cells[0]).text(),
+                    Name: $(this.cells[1]).text(),
+                    Jobtitle: $(this.cells[2]).text(),
+                    Description: $(this.cells[3]).text(),
+                    Facebook: $(this.cells[4]).text(),
+                    Linkedin: $(this.cells[5]).text(),
+                    GooglePlus: $(this.cells[6]).text(),
+                    Twitter: $(this.cells[7]).text(),
+                };
+            }).get();
+            callAjaxPost(
+                'ذخیره اطلاعات',
+                'آیا میخواهید اطلاعات ذخیره شود؟',
+                'بله ذخیره شود',
+                'خیر',
+                'application/x-www-form-urlencoded',
+                'json',
+                'Create',
+                {
+                    'Title': $("#Title").val(),
+                    'Description': $("#Description").val(),
+                    TeamMemberItems: dataItemsViewModel
+                }
+            );
+        }
+    </script>
+}

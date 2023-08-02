@@ -1,0 +1,86 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "اضافه کردن شمارنده";
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+}
+
+<section class="basic-elements">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-wrap bar-success">
+                        <h4 class="card-title mb-0">@ViewData["Title"]</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="px-3">
+                        <div class="form">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">آیکون</label>
+                                            <input type="text" class="form-control" id="Icon">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="helpInputTop">تعداد</label>
+                                            <input type="number" class="form-control" id="Count">
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="helpInputTop">عنوان</label>
+                                            <input type="text" class="form-control" id="Title">
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="helpInputTop">تصویر زمینه</label>
+                                            <input type="text" class="form-control" id="Image">
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <br />
+                                            <a onclick="Save()" class="btn btn-success col-md-12">ثبت</a>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts
+{
+    <link href="~/Sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/Sweetalert2/sweetalert2.min.js"></script>
+    <script>
+        function Save() {
+            callAjaxPost(
+                'ذخیره اطلاعات',
+                'آیا میخواهید اطلاعات ذخیره شود؟',
+                'بله ذخیره شود',
+                'خیر',
+                'application/x-www-form-urlencoded',
+                'json',
+                'Create',
+                {
+                    'Icon': $("#Icon").val(),
+                    'Count': $("#Count").val(),
+                    'Title': $("#Title").val(),
+                    'Image': $("#Image").val()
+                }
+            );
+        }
+    </script>
+}

@@ -1,0 +1,56 @@
+﻿@using MyWeb.Application.Services.Personals.Queries
+@model ContactList
+
+<div class="row">
+    @Html.HiddenFor(model => model.Id)
+    <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>        
+</div>
+
+<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+    <div class="col-sm-12">
+        <table class="table table-striped table-bordered zero-configuration dataTable" role="grid"
+               aria-describedby="DataTables_Table_0_info">
+            <thead>
+                <tr role="row">
+                    <th>Description</th>
+                    <th>Icon</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody id="ContactItems">
+                @for (var i = 0; i < Model.ContactItems.Count; i++)
+                {
+                    <tr role="row">
+                        <td>
+                            <input id="ContactItems[@i].Id" name="ContactItems[@i].Id" value="@Model.ContactItems[i].Id" type="hidden" class="form-control">
+                            <input id="ContactItems[@i].Description" name="ContactItems[@i].Description" value="@Model.ContactItems[i].Description" type="text" class="form-control">                            
+                        </td>
+                        <td>
+                            <input id="ContactItems[@i].Icon" name="ContactItems[@i].Icon" value="@Model.ContactItems[i].Icon" type="text" class="form-control">                            
+                        </td>
+                        <td>
+                            <input id="ContactItems[@i].Type" name="ContactItems[@i].Type" value="@Model.ContactItems[i].Type" type="text" class="form-control">
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

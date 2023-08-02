@@ -1,0 +1,104 @@
+﻿@using MyWeb.Application.Services.Personals.Queries
+@model AboutList
+
+<div class="row">
+    @Html.HiddenFor(model => model.Id)
+    <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Link, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.Link, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.HeaderImage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.HeaderImage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HeaderImage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.Title2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>    
+    <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.Description2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.TaskTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TaskTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+    <div class="col-sm-12">
+        <table class="table table-striped table-bordered zero-configuration dataTable" role="grid"
+               aria-describedby="DataTables_Table_0_info">
+            <thead>
+                <tr role="row">
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody id="AboutTasks">
+                @for (var i = 0; i < Model.AboutTasks.Count; i++)
+                {
+                    <tr role="row">
+                        <td>
+                            <input id="AboutTasks[@i].Id" name="AboutTasks[@i].Id" value="@Model.AboutTasks[i].Id" type="hidden" class="form-control">
+                            <input id="AboutTasks[@i].Title" name="AboutTasks[@i].Title" value="@Model.AboutTasks[i].Title" type="text" class="form-control">
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
